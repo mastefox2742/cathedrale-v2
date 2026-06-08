@@ -48,7 +48,7 @@ export function Header({ transparent = false }: HeaderProps) {
     <>
       <header style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: isScrolled ? '12px 48px' : '22px 48px',
+        padding: isScrolled ? '12px var(--pad-x)' : '18px var(--pad-x)',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         background: headerBg,
         backdropFilter: isScrolled ? 'blur(16px)' : 'none',
@@ -58,39 +58,54 @@ export function Header({ transparent = false }: HeaderProps) {
         transition: 'all .35s ease',
       }}>
         {/* Logo */}
-        <NavLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 12 }}>
+        <NavLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
           <div
             onMouseDown={startPress} onMouseUp={endPress} onMouseLeave={endPress}
             onTouchStart={startPress} onTouchEnd={endPress}
             style={{
-              width: 38, height: 38, borderRadius: '50%',
+              width: 34, height: 34, borderRadius: '50%', flexShrink: 0,
               border: `1.5px solid ${isScrolled ? 'var(--border-accent)' : 'rgba(255,255,255,.5)'}`,
-              overflow: 'hidden', flexShrink: 0, cursor: 'pointer',
+              overflow: 'hidden', cursor: 'pointer',
               boxShadow: isScrolled ? 'var(--shadow-sm)' : 'none',
             }}
           >
             <img src="/logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <span style={{ fontFamily: 'var(--font-serif)', fontSize: 15, fontWeight: 600, color: textColor, letterSpacing: '.04em', transition: 'color .35s' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 1, minWidth: 0 }}>
+            <span style={{
+              fontFamily: 'var(--font-serif)', fontSize: 'clamp(13px, 3.5vw, 15px)',
+              fontWeight: 600, color: textColor, letterSpacing: '.03em',
+              transition: 'color .35s', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+            }}>
               Cathédrale Sacré-Cœur
             </span>
-            <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.2em', textTransform: 'uppercase', color: subColor, transition: 'color .35s' }}>
+            <span className="header-subtitle" style={{
+              fontSize: 8, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase',
+              color: subColor, transition: 'color .35s',
+            }}>
               Archidiocèse de Brazzaville
             </span>
           </div>
         </NavLink>
 
         {/* Menu button */}
-        <button onClick={() => setMenuOpen(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }} aria-label="Menu">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, padding: 6 }}>
-            <span style={{ display: 'block', height: 1.5, width: 28, background: barColor, transition: 'all .3s' }} />
-            <span style={{ display: 'block', height: 1.5, width: 20, background: barAccent, transition: 'all .3s' }} />
-            <span style={{ display: 'block', height: 1.5, width: 28, background: barColor, transition: 'all .3s' }} />
+        <button onClick={() => setMenuOpen(true)}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, flexShrink: 0, padding: '4px 0 4px 12px' }}
+          aria-label="Menu">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 5, padding: 4 }}>
+            <span style={{ display: 'block', height: 1.5, width: 26, background: barColor, transition: 'all .3s' }} />
+            <span style={{ display: 'block', height: 1.5, width: 18, background: barAccent, transition: 'all .3s' }} />
+            <span style={{ display: 'block', height: 1.5, width: 26, background: barColor, transition: 'all .3s' }} />
           </div>
-          <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: subColor, transition: 'color .35s' }}>Menu</span>
+          <span style={{ fontSize: 8, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: subColor, transition: 'color .35s' }}>Menu</span>
         </button>
       </header>
+
+      <style>{`
+        @media (max-width: 480px) {
+          .header-subtitle { display: none; }
+        }
+      `}</style>
 
       {/* Overlay */}
       <div onClick={() => setMenuOpen(false)} style={{ position: 'fixed', inset: 0, zIndex: 200, background: menuOpen ? 'rgba(30,58,95,.4)' : 'rgba(30,58,95,0)', pointerEvents: menuOpen ? 'all' : 'none', transition: 'background .4s' }} />

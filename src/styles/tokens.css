@@ -334,12 +334,82 @@ a { color: inherit; }
   animation: spin .8s linear infinite;
 }
 
-/* ── RESPONSIVE ── */
+/* ══════════════════════════════════════════════════
+   RESPONSIVE — Mobile First
+   Breakpoints : 900px (tablet) · 640px (mobile) · 400px (xs)
+══════════════════════════════════════════════════ */
+
+/* ── Classes de grilles responsives ── */
+.grid-2   { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.grid-4   { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.grid-med { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-cat { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: rgba(193,164,97,.08); }
+
+/* ── Utilitaires visibilité ── */
+.hide-mobile { display: block; }
+
+/* ── Tablet ≤ 900px ── */
 @media (max-width: 900px) {
-  :root { --pad-x: 24px; }
-  .page-hero-content { padding: 0 var(--pad-x) 32px; }
+  :root {
+    --pad-x: 24px;
+    --space-xl: 56px;
+    --space-lg: 36px;
+  }
+
+  /* Conteneur */
+  .inner { padding: 0 var(--pad-x); }
+
+  /* Page hero */
+  .page-hero { padding: 100px 0 36px; }
+  .page-hero-content { padding: 0 var(--pad-x); }
+  .page-hero h1 { font-size: clamp(28px, 7vw, 48px); }
+
+  /* Verse */
+  .verse-band { padding: 36px var(--pad-x); }
+
+  /* Grilles → 1 colonne */
+  .grid-2   { grid-template-columns: 1fr; gap: 32px; }
+  .grid-4   { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-med { grid-template-columns: 1fr; gap: 16px; }
+  .grid-cat { grid-template-columns: 1fr 1fr; }
+
+  /* Boutons côte-à-côte → colonne */
+  .btn-row { flex-direction: column; align-items: flex-start; }
+
+  /* Cacher image dans section histoire */
+  .hide-mobile { display: none; }
 }
-@media (max-width: 600px) {
-  :root { --pad-x: 16px; }
-  .page-hero { height: 38vh; min-height: 260px; }
+
+/* ── Mobile ≤ 640px ── */
+@media (max-width: 640px) {
+  :root {
+    --pad-x: 16px;
+    --space-xl: 48px;
+    --space-lg: 28px;
+    --space-md: 18px;
+    --font-size-hero: 36px;
+  }
+
+  /* Hero plein écran */
+  .page-hero { padding: 90px 0 28px; }
+
+  /* Grilles → tout en colonne */
+  .grid-4   { grid-template-columns: 1fr; }
+  .grid-cat { grid-template-columns: 1fr; background: none; gap: 8px; }
+
+  /* Verse */
+  .verse-band { padding: 28px var(--pad-x); }
+  .verse-band blockquote { font-size: 17px; }
+
+  /* Cards — plus de border-radius agressif */
+  .dark-card { border-radius: var(--r-sm); }
+
+  /* Sections */
+  section { padding: var(--space-xl) 0; }
+}
+
+/* ── Extra small ≤ 400px ── */
+@media (max-width: 400px) {
+  :root { --pad-x: 12px; }
+  .page-hero h1 { font-size: 26px; }
 }

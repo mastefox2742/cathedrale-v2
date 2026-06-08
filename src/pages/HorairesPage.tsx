@@ -61,7 +61,7 @@ export function HorairesPage() {
           <div className="reveal" style={{ marginBottom: 28 }}>
             <span className="section-label">Sacrements</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(193,164,97,.07)', marginBottom: 'var(--space-xl)' }}>
+          <div className="sacrement-grid-resp" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(193,164,97,.07)', marginBottom: 'var(--space-xl)' }}>
             {SACREMENTS.map((s, i) => (
               <div key={i} className="reveal" style={{ background: 'var(--surface)', padding: '28px 24px', display: 'flex', gap: 16, alignItems: 'flex-start', transition: 'background .2s' }}
                 onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.background = 'var(--bg-alt)'}
@@ -80,7 +80,7 @@ export function HorairesPage() {
           <div className="reveal" style={{ marginBottom: 28 }}>
             <span className="section-label">Informations pratiques</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(193,164,97,.06)', marginBottom: 'var(--space-xl)' }}>
+          <div className="contact-grid-resp" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(193,164,97,.06)', marginBottom: 'var(--space-xl)' }}>
             {CONTACTS.map((c, i) => (
               <div key={i} className="reveal" style={{ background: 'var(--bg-alt)', padding: '28px 24px', display: 'flex', gap: 16, alignItems: 'flex-start' }}>
                 <div style={{ fontSize: 20, flexShrink: 0, marginTop: 2 }}>{c.icon}</div>

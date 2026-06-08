@@ -34,12 +34,11 @@ export function Footer() {
     <footer style={{
       background: 'var(--primary)',
       borderTop: '4px solid var(--accent)',
-      padding: '56px 48px 28px',
+      padding: 'var(--space-lg) var(--pad-x) 28px',
     }}>
-      <div style={{
+      <div className="footer-grid" style={{
         maxWidth: 'var(--max-w)', margin: '0 auto',
-        display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 48,
-        paddingBottom: 48,
+        paddingBottom: 40,
         borderBottom: '1px solid rgba(255,255,255,.1)',
       }}>
         {/* Brand */}
@@ -80,15 +79,29 @@ export function Footer() {
       <div style={{
         maxWidth: 'var(--max-w)', margin: '0 auto',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        paddingTop: 22, flexWrap: 'wrap', gap: 12,
+        paddingTop: 20, flexWrap: 'wrap', gap: 10,
       }}>
         <p style={{ fontSize: 11, color: 'rgba(255,255,255,.3)' }}>
-          © {new Date().getFullYear()} Cathédrale Sacré-Cœur · Archidiocèse de Brazzaville
+          © {new Date().getFullYear()} Cathédrale Sacré-Cœur · Brazzaville
         </p>
-        <span style={{ fontSize: 11, color: 'var(--accent)', letterSpacing: '.08em' }}>
-          ✦ Sumus corpus Christi, unum corpus ✦
+        <span style={{ fontSize: 11, color: 'var(--accent)', letterSpacing: '.06em' }}>
+          ✦ Sumus corpus Christi ✦
         </span>
       </div>
+
+      <style>{`
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+          gap: 40px;
+        }
+        @media (max-width: 900px) {
+          .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+        }
+        @media (max-width: 500px) {
+          .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+      `}</style>
     </footer>
   )
 }

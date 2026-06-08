@@ -80,7 +80,7 @@ export function HomePage() {
 
       {/* ══ LITURGIE ══ */}
       <section style={{ padding: 'var(--space-xl) 0', background: 'var(--surface)' }}>
-        <div className="inner" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
+        <div className="inner grid-2" style={{ alignItems: 'center', gap: 'clamp(28px,5vw,72px)' }}>
           <div className="reveal">
             <span className="section-label">Liturgie</span>
             <p style={{ fontSize: 11, color: 'var(--accent-dark)', letterSpacing: '.12em', marginBottom: 10 }}>
@@ -183,7 +183,7 @@ export function HomePage() {
 
       {/* ══ HISTOIRE ══ */}
       <section style={{ padding: 'var(--space-xl) 0', background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%)' }}>
-        <div className="inner" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
+        <div className="inner grid-2" style={{ alignItems: 'center', gap: 'clamp(28px,5vw,72px)' }}>
           <div className="reveal">
             <span className="section-label" style={{ color: 'var(--accent-light)' }}>Notre Identité</span>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(26px,3vw,38px)', fontWeight: 700, color: '#fff', marginBottom: 16 }}>Histoire de la Cathédrale</h2>
@@ -217,7 +217,7 @@ export function HomePage() {
             </div>
             <Link to="/evenements" className="btn-outline" style={{ fontSize: 10, flexShrink: 0 }}>Voir tout →</Link>
           </div>
-          <div className="reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <div className="reveal grid-med">
             {[
               { img: '/cathedrale.jpg', plat: 'YouTube', platCls: '#FF0000', type: 'Replay · Messe', titre: 'Solennité de la Pentecôte — Messe Pontificale', date: 'Dim 25 mai 2026 · 10h30' },
               { img: '/hero-bg.jpg', plat: 'Facebook', platCls: '#1877F2', type: 'Replay · Événement', titre: 'Grande Veillée Pascale — Nuit Sainte', date: 'Sam 19 avr 2026 · 22h00' },
