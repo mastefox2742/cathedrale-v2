@@ -5,6 +5,7 @@ import { Layout } from './components/layout/Layout'
 // ── Pages publiques (lazy) ────────────────────────────────────────────────
 const HomePage          = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })))
 const LiturgiePage      = lazy(() => import('./pages/LiturgiePage').then(m => ({ default: m.LiturgiePage })))
+const HomeliesPage      = lazy(() => import('./pages/HomeliesPage').then(m => ({ default: m.HomeliesPage })))
 const AnnoncesPage      = lazy(() => import('./pages/AnnoncesPage').then(m => ({ default: m.AnnoncesPage })))
 const EvenementsPage    = lazy(() => import('./pages/EvenementsPage').then(m => ({ default: m.EvenementsPage })))
 const CatechesePage     = lazy(() => import('./pages/CatechesePage').then(m => ({ default: m.CatechesePage })))
@@ -41,6 +42,7 @@ export default function App() {
 
         {/* Pages publiques */}
         <Route path="/liturgie"         element={<Layout><W><LiturgiePage /></W></Layout>} />
+        <Route path="/homelies"         element={<Layout><W><HomeliesPage /></W></Layout>} />
         <Route path="/annonces"         element={<Layout><W><AnnoncesPage /></W></Layout>} />
         <Route path="/evenements"       element={<Layout><W><EvenementsPage /></W></Layout>} />
         <Route path="/catechese"        element={<Layout><W><CatechesePage /></W></Layout>} />
