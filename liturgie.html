@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liturgie du Jour — Cathédrale Sacré-Cœur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --gold:#C1A461; --gold-light:#D9C07E; --gold-dark:#9B7F3E;
+      --black:#0A0A0A; --anthracite:#1A1A1A; --dark:#141414; --mid:#2C2C2C;
+      --grey:#8A8A8A; --white:#FAFAFA;
+      --serif:'Playfair Display',Georgia,serif; --sans:'Montserrat',sans-serif;
+    }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--black); color:var(--white); overflow-x:hidden; line-height:1.6; }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--black); }
+    ::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:2px; }
+
+    header { position:fixed; top:0; left:0; right:0; z-index:100; padding:22px 48px; display:flex; justify-content:space-between; align-items:center; background:rgba(10,10,10,.95); backdrop-filter:blur(12px); border-bottom:1px solid rgba(193,164,97,.15); }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo-symbol { width:36px; height:36px; border:1.5px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:14px; color:var(--gold); }
+    .logo-text { font-family:var(--serif); font-size:15px; font-weight:600; color:var(--white); letter-spacing:.04em; line-height:1.2; }
+    .logo-text span { display:block; font-size:10px; font-weight:400; color:var(--gold); letter-spacing:.12em; font-family:var(--sans); text-transform:uppercase; }
+    .menu-btn-wrap { display:flex; flex-direction:column; align-items:center; gap:3px; background:none; border:none; cursor:pointer; }
+    .menu-bars { display:flex; flex-direction:column; gap:5px; padding:6px; }
+    .menu-bars b { display:block; height:1.5px; background:var(--white); font-style:normal; }
+    .menu-bars b:nth-child(1) { width:28px; }
+    .menu-bars b:nth-child(2) { width:20px; background:var(--gold); }
+    .menu-bars b:nth-child(3) { width:28px; }
+    .menu-label { font-size:9px; font-weight:600; letter-spacing:.18em; color:var(--grey); text-transform:uppercase; font-family:var(--sans); }
+
+    .overlay { position:fixed; inset:0; background:rgba(0,0,0,0); z-index:200; pointer-events:none; transition:background .4s ease; }
+    .overlay.open { background:rgba(0,0,0,.6); pointer-events:all; }
+    .side-menu { position:fixed; top:0; right:0; width:min(420px,90vw); height:100vh; background:var(--anthracite); z-index:201; transform:translateX(100%); transition:transform .5s cubic-bezier(.77,0,.175,1); display:flex; flex-direction:column; border-left:1px solid rgba(193,164,97,.12); overflow-y:auto; }
+    .side-menu.open { transform:translateX(0); }
+    .side-menu-head { display:flex; justify-content:space-between; align-items:center; padding:32px 36px 24px; border-bottom:1px solid rgba(193,164,97,.1); }
+    .close-btn { width:36px; height:36px; border-radius:50%; border:1px solid rgba(193,164,97,.25); background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--grey); font-size:18px; transition:all .2s; font-family:var(--sans); }
+    .close-btn:hover { background:rgba(193,164,97,.1); color:var(--gold); }
+    .side-menu-nav { padding:32px 36px; flex:1; }
+    .side-menu-nav a { display:flex; align-items:center; gap:16px; padding:14px 0; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.04); font-family:var(--serif); font-size:20px; font-weight:600; color:rgba(250,250,250,.72); transition:color .25s, padding-left .25s; }
+    .side-menu-nav a:hover, .side-menu-nav a.active { color:var(--gold); padding-left:6px; }
+    .nav-num { font-family:var(--sans); font-size:10px; font-weight:600; color:var(--gold-dark); letter-spacing:.1em; min-width:22px; }
+    .side-menu-footer { padding:24px 36px 36px; border-top:1px solid rgba(193,164,97,.1); }
+    .side-menu-footer p { font-size:12px; color:var(--grey); line-height:1.8; }
+    .side-menu-footer a { color:var(--gold); text-decoration:none; }
+
+    /* PAGE */
+    .page-hero { padding:140px 0 60px; background:var(--anthracite); border-bottom:1px solid rgba(193,164,97,.1); position:relative; overflow:hidden; }
+    .page-hero::before { content:'✝'; position:absolute; right:80px; top:50%; transform:translateY(-50%); font-family:var(--serif); font-size:200px; color:rgba(193,164,97,.04); line-height:1; }
+    .container { max-width:1000px; margin:0 auto; padding:0 48px; }
+    .page-tag { display:block; font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    .page-title { font-family:var(--serif); font-size:clamp(36px,5vw,64px); font-weight:700; line-height:1.1; color:var(--white); }
+    .page-title em { color:var(--gold); font-style:italic; }
+    .page-sub { font-size:15px; font-weight:300; color:var(--grey); margin-top:14px; line-height:1.7; }
+    .gold-bar { width:48px; height:1px; background:linear-gradient(90deg,var(--gold),transparent); margin:20px 0; }
+
+    /* DATE NAV */
+    .date-nav { background:var(--dark); border-bottom:1px solid rgba(193,164,97,.1); padding:20px 0; }
+    .date-nav-inner { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .date-btn { width:40px; height:40px; border-radius:50%; border:1px solid rgba(193,164,97,.2); background:none; cursor:pointer; color:var(--gold); font-size:16px; display:flex; align-items:center; justify-content:center; transition:background .2s; flex-shrink:0; }
+    .date-btn:hover { background:rgba(193,164,97,.1); }
+    .date-display { flex:1; }
+    .date-display strong { display:block; font-family:var(--serif); font-size:18px; font-weight:600; color:var(--white); text-transform:capitalize; }
+    .date-display span { font-size:13px; color:var(--gold); font-style:italic; }
+    .date-input { padding:8px 12px; background:var(--mid); border:1px solid rgba(193,164,97,.2); color:var(--white); font-family:var(--sans); font-size:13px; border-radius:2px; cursor:pointer; }
+    .couleur-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border:1px solid rgba(193,164,97,.2); font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--grey); }
+    .couleur-dot { width:8px; height:8px; border-radius:50%; }
+
+    /* LECTURES */
+    .content-area { padding:60px 0 80px; }
+    .lecture-block { margin-bottom:2px; background:var(--anthracite); border:1px solid rgba(193,164,97,.06); overflow:hidden; }
+    .lecture-block.evangile { border-color:rgba(193,164,97,.2); }
+    .lecture-header { width:100%; background:none; border:none; cursor:pointer; text-align:left; padding:28px 36px; display:flex; align-items:center; gap:20px; transition:background .2s; }
+    .lecture-header:hover { background:rgba(193,164,97,.04); }
+    .lecture-stripe { width:3px; height:48px; flex-shrink:0; background:var(--gold-dark); }
+    .lecture-block.evangile .lecture-stripe { background:var(--gold); height:56px; width:4px; }
+    .lecture-meta { flex:1; }
+    .lecture-type { font-family:var(--sans); font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; display:block; }
+    .lecture-ref { font-family:var(--serif); font-size:20px; font-weight:600; color:var(--white); line-height:1.3; }
+    .lecture-preview { font-family:var(--serif); font-style:italic; font-size:13px; color:var(--grey); margin-top:6px; line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .chevron { color:var(--gold); font-size:20px; flex-shrink:0; transition:transform .3s; }
+    .lecture-block.open .chevron { transform:rotate(180deg); }
+    .lecture-body { display:none; padding:0 36px 32px 36px; border-top:1px solid rgba(193,164,97,.08); }
+    .lecture-block.open .lecture-body { display:block; }
+    .lecture-text { font-family:var(--serif); font-size:17px; line-height:1.95; color:rgba(250,250,250,.82); padding-top:24px; }
+    .lecture-text p { margin-bottom:14px; }
+    .lecture-text strong { color:var(--gold-light); font-weight:600; }
+    .aelf-link { display:inline-flex; align-items:center; gap:6px; margin-top:20px; font-family:var(--sans); font-size:11px; color:var(--grey); text-decoration:none; transition:color .2s; }
+    .aelf-link:hover { color:var(--gold); }
+
+    /* COULEURS LITURGIQUES */
+    .couleurs-note { background:var(--dark); border:1px solid rgba(193,164,97,.1); padding:20px 28px; margin-bottom:48px; }
+    .couleurs-note p { font-size:13px; color:var(--grey); line-height:1.7; }
+    .couleurs-note strong { color:var(--gold); }
+
+    footer { background:var(--black); border-top:1px solid rgba(193,164,97,.1); padding:48px 0 28px; margin-top:60px; }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--grey); }
+    .footer-links { display:flex; gap:24px; }
+    .footer-links a { color:rgba(250,250,250,.4); text-decoration:none; font-size:13px; transition:color .2s; }
+    .footer-links a:hover { color:var(--gold); }
+
+    @media (max-width:768px) {
+      header { padding:18px 20px; }
+      .container { padding:0 20px; }
+      .page-hero { padding:120px 0 40px; }
+      .lecture-header { padding:20px 20px; }
+      .lecture-body { padding:0 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <a href="index.html" class="logo">
+      <div class="logo-symbol">✝</div>
+      <div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div>
+    </a>
+    <button class="close-btn" onclick="closeMenu()">✕</button>
+  </div>
+  <nav class="side-menu-nav">
+    <a href="index.html"><span class="nav-num">01</span> Accueil</a>
+    <a href="liturgie.html" class="active"><span class="nav-num">02</span> Liturgie du Jour</a>
+    <a href="annonces.html"><span class="nav-num">03</span> Annonces</a>
+    <a href="evenements.html"><span class="nav-num">04</span> Événements</a>
+    <a href="catechese.html"><span class="nav-num">05</span> Catéchèse</a>
+    <a href="vie-spirituelle.html"><span class="nav-num">06</span> Vie Spirituelle</a>
+    <a href="horaires.html"><span class="nav-num">07</span> Horaires &amp; Contact</a>
+    <a href="dons.html"><span class="nav-num">08</span> Faire un Don</a>
+  </nav>
+  <div class="side-menu-footer">
+    <p>Avenue de la Paix, Centre-ville<br>Brazzaville, République du Congo<br><br>
+    <a href="tel:+242060000000">+242 06 000 00 00</a></p>
+  </div>
+</div>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-symbol">✝</div>
+    <div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div>
+  </a>
+  <button class="menu-btn-wrap" onclick="openMenu()">
+    <div class="menu-bars"><b></b><b></b><b></b></div>
+    <span class="menu-label">Menu</span>
+  </button>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="page-tag">✦ Parole de Dieu</span>
+    <h1 class="page-title">Liturgie du Jour</h1>
+    <div class="gold-bar"></div>
+    <p class="page-sub">Lectures, Psaume et Évangile de la messe quotidienne</p>
+  </div>
+</div>
+
+<div class="date-nav">
+  <div class="container">
+    <div class="date-nav-inner">
+      <button class="date-btn" id="prevDay" title="Jour précédent">‹</button>
+      <div class="date-display">
+        <strong id="dateText">Chargement…</strong>
+        <span id="feteText"></span>
+      </div>
+      <button class="date-btn" id="nextDay" title="Jour suivant">›</button>
+      <input type="date" class="date-input" id="dateInput" />
+      <div class="couleur-badge">
+        <span class="couleur-dot" id="couleurDot" style="background:var(--gold-dark)"></span>
+        <span id="couleurLabel">Temps Ordinaire</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-area">
+  <div class="container">
+
+    <div class="couleurs-note">
+      <p>Les lectures sont récupérées depuis <strong>AELF.org</strong>. Si la connexion échoue, les lectures exemples s'affichent.</p>
+    </div>
+
+    <div id="lecturesContainer">
+
+      <!-- Lecture 1 -->
+      <div class="lecture-block" id="block0">
+        <button class="lecture-header" onclick="toggleLecture(0)">
+          <div class="lecture-stripe"></div>
+          <div class="lecture-meta">
+            <span class="lecture-type">Première Lecture</span>
+            <div class="lecture-ref" id="ref0">Élie — 1 Rois 19, 4-8</div>
+            <div class="lecture-preview" id="preview0">« L'ange du Seigneur revint, le toucha et dit : Lève-toi et mange ! »</div>
+          </div>
+          <span class="chevron">∨</span>
+        </button>
+        <div class="lecture-body">
+          <div class="lecture-text" id="text0">
+            <p>En ces jours-là, Élie marcha dans le désert, une journée de chemin, puis il s'assit sous un genêt et souhaita mourir : « C'est assez ! Maintenant, Seigneur, prends ma vie, car je ne suis pas meilleur que mes pères. » Il se coucha sous le genêt et s'endormit.</p>
+            <p>Mais voici qu'un ange le toucha et lui dit : « Lève-toi et mange ! » Il regarda : à son chevet, il y avait une galette cuite sur des pierres chauffées, et une cruche d'eau. Il mangea, il but, puis se recoucha.</p>
+            <p>L'ange du Seigneur revint, le toucha et dit : « Lève-toi et mange ! car le chemin est trop long pour toi. » Il se leva, mangea et but. Et avec la force que lui donna cette nourriture, il marcha quarante jours et quarante nuits jusqu'à la montagne de Dieu, l'Horeb.</p>
+          </div>
+          <a href="https://www.aelf.org" target="_blank" rel="noopener" class="aelf-link">↗ Voir sur AELF.org</a>
+        </div>
+      </div>
+
+      <!-- Psaume -->
+      <div class="lecture-block" id="block1">
+        <button class="lecture-header" onclick="toggleLecture(1)">
+          <div class="lecture-stripe"></div>
+          <div class="lecture-meta">
+            <span class="lecture-type">Psaume</span>
+            <div class="lecture-ref" id="ref1">Psaume 33 (34)</div>
+            <div class="lecture-preview" id="preview1">« Goûtez et voyez comme est bon le Seigneur. »</div>
+          </div>
+          <span class="chevron">∨</span>
+        </button>
+        <div class="lecture-body">
+          <div class="lecture-text" id="text1">
+            <p><strong>R/ Goûtez et voyez comme est bon le Seigneur.</strong></p>
+            <p>Je bénis le Seigneur en tout temps, sa louange est toujours sur mes lèvres. Je me glorifie dans le Seigneur : que les pauvres m'entendent et soient en fête !</p>
+            <p>Goûtez et voyez comme est bon le Seigneur, heureux qui trouve en lui son refuge ! Craignez le Seigneur, vous ses fidèles : rien ne manque à ceux qui le craignent.</p>
+            <p>Les grands ont tout perdu, ils ont faim ; ceux qui cherchent le Seigneur ne manqueront d'aucun bien.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Évangile -->
+      <div class="lecture-block evangile" id="block2">
+        <button class="lecture-header" onclick="toggleLecture(2)">
+          <div class="lecture-stripe"></div>
+          <div class="lecture-meta">
+            <span class="lecture-type">✦ Évangile</span>
+            <div class="lecture-ref" id="ref2">Jean 6, 41-51</div>
+            <div class="lecture-preview" id="preview2">« Je suis le pain vivant, descendu du ciel. »</div>
+          </div>
+          <span class="chevron">∨</span>
+        </button>
+        <div class="lecture-body">
+          <div class="lecture-text" id="text2">
+            <p>En ce temps-là, les Juifs récriminaient contre Jésus parce qu'il avait dit : « Je suis le pain descendu du ciel. » Ils disaient : « N'est-il pas Jésus, le fils de Joseph ? Nous connaissons bien son père et sa mère. Comment peut-il dire maintenant : 'Je suis descendu du ciel' ? »</p>
+            <p>Jésus leur répondit : « Ne récriminez pas entre vous. Nul ne peut venir à moi, si le Père qui m'a envoyé ne l'attire, et moi, je le ressusciterai au dernier jour. Il est écrit dans les Prophètes : Ils seront tous instruits par Dieu. Quiconque a écouté le Père et reçu son enseignement vient à moi. »</p>
+            <p>« Non que personne ait vu le Père, sinon celui qui vient d'auprès de Dieu : celui-là a vu le Père. Amen, amen, je vous le dis : celui qui croit a la vie éternelle. Je suis le pain de la vie. Vos pères ont mangé la manne dans le désert, et ils sont morts. Moi, je suis le pain vivant descendu du ciel. Celui qui mangera ce pain vivra éternellement. Le pain que je donnerai, c'est ma chair, donnée pour la vie du monde. »</p>
+          </div>
+          <a href="https://www.aelf.org" target="_blank" rel="noopener" class="aelf-link">↗ Voir sur AELF.org</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Cathédrale Sacré-Cœur de Brazzaville</span>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="horaires.html">Horaires</a>
+        <a href="dons.html">Faire un Don</a>
+      </div>
+      <span style="color:var(--gold);">✦</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const overlay  = document.getElementById('overlay')
+  const sideMenu = document.getElementById('sideMenu')
+  function openMenu()  { overlay.classList.add('open');  sideMenu.classList.add('open');  document.body.style.overflow='hidden' }
+  function closeMenu() { overlay.classList.remove('open'); sideMenu.classList.remove('open'); document.body.style.overflow='' }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu() })
+
+  function toggleLecture(i) {
+    const block = document.getElementById('block'+i)
+    block.classList.toggle('open')
+  }
+
+  // Ouvrir l'évangile par défaut
+  document.getElementById('block2').classList.add('open')
+
+  // Date
+  let currentDate = new Date()
+  function formatDate(d) {
+    return d.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+  }
+  function updateDateDisplay() {
+    document.getElementById('dateText').textContent = formatDate(currentDate)
+    document.getElementById('dateInput').value = currentDate.toISOString().split('T')[0]
+  }
+  document.getElementById('prevDay').onclick = () => { currentDate.setDate(currentDate.getDate()-1); updateDateDisplay() }
+  document.getElementById('nextDay').onclick = () => { currentDate.setDate(currentDate.getDate()+1); updateDateDisplay() }
+  document.getElementById('dateInput').onchange = e => { currentDate = new Date(e.target.value+'T12:00:00'); updateDateDisplay() }
+  updateDateDisplay()
+</script>
+</body>
+</html>

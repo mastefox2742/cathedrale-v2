@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catéchèse — Cathédrale Sacré-Cœur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{--gold:#C1A461;--gold-light:#D9C07E;--gold-dark:#9B7F3E;--black:#0A0A0A;--anthracite:#1A1A1A;--dark:#141414;--mid:#2C2C2C;--grey:#8A8A8A;--white:#FAFAFA;--serif:'Playfair Display',Georgia,serif;--sans:'Montserrat',sans-serif;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+    ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--black);} ::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:2px;}
+    header{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(193,164,97,.15);}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .logo-symbol{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;color:var(--gold);}
+    .logo-text{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--white);letter-spacing:.04em;line-height:1.2;}
+    .logo-text span{display:block;font-size:10px;color:var(--gold);letter-spacing:.12em;font-family:var(--sans);text-transform:uppercase;}
+    .menu-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;}
+    .menu-bars{display:flex;flex-direction:column;gap:5px;padding:6px;}
+    .menu-bars b{display:block;height:1.5px;background:var(--white);font-style:normal;}
+    .menu-bars b:nth-child(1){width:28px;} .menu-bars b:nth-child(2){width:20px;background:var(--gold);} .menu-bars b:nth-child(3){width:28px;}
+    .menu-label{font-size:9px;font-weight:600;letter-spacing:.18em;color:var(--grey);text-transform:uppercase;font-family:var(--sans);}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .4s;}
+    .overlay.open{background:rgba(0,0,0,.6);pointer-events:all;}
+    .side-menu{position:fixed;top:0;right:0;width:min(420px,90vw);height:100vh;background:var(--anthracite);z-index:201;transform:translateX(100%);transition:transform .5s cubic-bezier(.77,0,.175,1);display:flex;flex-direction:column;border-left:1px solid rgba(193,164,97,.12);overflow-y:auto;}
+    .side-menu.open{transform:translateX(0);}
+    .side-menu-head{display:flex;justify-content:space-between;align-items:center;padding:32px 36px 24px;border-bottom:1px solid rgba(193,164,97,.1);}
+    .close-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(193,164,97,.25);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--grey);font-size:18px;font-family:var(--sans);}
+    .close-btn:hover{background:rgba(193,164,97,.1);color:var(--gold);}
+    .side-menu-nav{padding:32px 36px;flex:1;}
+    .side-menu-nav a{display:flex;align-items:center;gap:16px;padding:14px 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--serif);font-size:20px;font-weight:600;color:rgba(250,250,250,.72);transition:color .25s,padding-left .25s;}
+    .side-menu-nav a:hover,.side-menu-nav a.active{color:var(--gold);padding-left:6px;}
+    .nav-num{font-family:var(--sans);font-size:10px;font-weight:600;color:var(--gold-dark);letter-spacing:.1em;min-width:22px;}
+    .side-menu-footer{padding:24px 36px 36px;border-top:1px solid rgba(193,164,97,.1);}
+    .side-menu-footer p{font-size:12px;color:var(--grey);line-height:1.8;}
+    .side-menu-footer a{color:var(--gold);text-decoration:none;}
+
+    .page-hero{padding:140px 0 60px;background:var(--anthracite);border-bottom:1px solid rgba(193,164,97,.1);position:relative;overflow:hidden;}
+    .page-hero::before{content:'✝';position:absolute;right:80px;top:50%;transform:translateY(-50%);font-family:var(--serif);font-size:200px;color:rgba(193,164,97,.04);line-height:1;}
+    .container{max-width:1100px;margin:0 auto;padding:0 48px;}
+    .page-tag{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+    .page-title{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:700;line-height:1.1;color:var(--white);}
+    .page-title em{color:var(--gold);font-style:italic;}
+    .page-sub{font-size:15px;font-weight:300;color:var(--grey);margin-top:14px;line-height:1.7;}
+    .gold-bar{width:48px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:20px 0;}
+
+    .content-area{padding:72px 0 80px;}
+    .section-label{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+    .section-title{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--white);margin-bottom:40px;line-height:1.2;}
+    .section-title em{color:var(--gold);font-style:italic;}
+
+    /* PARCOURS CARDS */
+    .parcours-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(193,164,97,.08);margin-bottom:80px;}
+    .parcours-card{background:var(--anthracite);padding:40px 32px;display:flex;flex-direction:column;gap:16px;transition:background .3s;position:relative;overflow:hidden;}
+    .parcours-card:hover{background:var(--mid);}
+    .parcours-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold-dark);}
+    .parcours-num{font-family:var(--serif);font-size:11px;color:var(--gold-dark);letter-spacing:.12em;}
+    .parcours-age{display:inline-block;padding:4px 12px;border:1px solid rgba(193,164,97,.25);font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+    .parcours-card h3{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--white);line-height:1.3;}
+    .parcours-card p{font-size:13px;color:var(--grey);font-weight:300;line-height:1.7;flex:1;}
+    .parcours-detail{font-size:12px;color:var(--grey);border-top:1px solid rgba(193,164,97,.1);padding-top:16px;}
+    .parcours-detail strong{color:var(--gold-light);font-weight:600;}
+
+    /* INSCRIPTION BAND */
+    .inscription-band{background:var(--anthracite);border:1px solid rgba(193,164,97,.15);padding:48px;margin-bottom:80px;display:flex;gap:48px;align-items:center;flex-wrap:wrap;}
+    .inscription-band h2{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--white);margin-bottom:12px;}
+    .inscription-band p{font-size:14px;color:var(--grey);font-weight:300;line-height:1.7;}
+    .btn-gold{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:var(--black);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:background .2s;width:fit-content;margin-top:20px;flex-shrink:0;}
+    .btn-gold:hover{background:var(--gold-light);}
+
+    /* CATÉCHISTES */
+    .equipe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(193,164,97,.06);margin-bottom:80px;}
+    .catechiste-card{background:var(--dark);padding:32px 24px;text-align:center;}
+    .catechiste-avatar{width:60px;height:60px;border-radius:50%;border:1.5px solid rgba(193,164,97,.3);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;color:var(--gold);margin:0 auto 16px;}
+    .catechiste-card h4{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--white);margin-bottom:4px;}
+    .catechiste-card p{font-size:12px;color:var(--grey);font-weight:300;}
+
+    /* FAQ */
+    .faq-list{display:flex;flex-direction:column;gap:1px;}
+    .faq-item{background:var(--anthracite);border:1px solid rgba(193,164,97,.06);}
+    .faq-question{width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:22px 28px;display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--white);font-family:var(--serif);font-size:17px;font-weight:600;transition:color .2s;}
+    .faq-question:hover{color:var(--gold);}
+    .faq-chevron{color:var(--gold);font-size:18px;flex-shrink:0;transition:transform .3s;}
+    .faq-item.open .faq-chevron{transform:rotate(180deg);}
+    .faq-answer{display:none;padding:0 28px 22px;font-size:14px;color:var(--grey);font-weight:300;line-height:1.8;}
+    .faq-item.open .faq-answer{display:block;}
+
+    footer{background:var(--black);border-top:1px solid rgba(193,164,97,.1);padding:48px 0 28px;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--grey);}
+    .footer-links a{color:rgba(250,250,250,.4);text-decoration:none;font-size:13px;transition:color .2s;margin-left:20px;}
+    .footer-links a:hover{color:var(--gold);}
+
+    @media(max-width:900px){
+      header{padding:18px 20px;} .container{padding:0 20px;} .page-hero{padding:120px 0 40px;}
+      .parcours-grid{grid-template-columns:1fr;}
+      .equipe-grid{grid-template-columns:1fr 1fr;}
+      .inscription-band{padding:28px;}
+    }
+    @media(max-width:500px){.equipe-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <a href="index.html" class="logo"><div class="logo-symbol">✝</div><div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div></a>
+    <button class="close-btn" onclick="closeMenu()">✕</button>
+  </div>
+  <nav class="side-menu-nav">
+    <a href="index.html"><span class="nav-num">01</span> Accueil</a>
+    <a href="liturgie.html"><span class="nav-num">02</span> Liturgie du Jour</a>
+    <a href="annonces.html"><span class="nav-num">03</span> Annonces</a>
+    <a href="evenements.html"><span class="nav-num">04</span> Événements</a>
+    <a href="catechese.html" class="active"><span class="nav-num">05</span> Catéchèse</a>
+    <a href="vie-spirituelle.html"><span class="nav-num">06</span> Vie Spirituelle</a>
+    <a href="horaires.html"><span class="nav-num">07</span> Horaires &amp; Contact</a>
+    <a href="dons.html"><span class="nav-num">08</span> Faire un Don</a>
+  </nav>
+  <div class="side-menu-footer"><p>Avenue de la Paix, Centre-ville<br>Brazzaville, République du Congo<br><br><a href="tel:+242060000000">+242 06 000 00 00</a></p></div>
+</div>
+
+<header>
+  <a href="index.html" class="logo"><div class="logo-symbol">✝</div><div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div></a>
+  <button class="menu-btn-wrap" onclick="openMenu()"><div class="menu-bars"><b></b><b></b><b></b></div><span class="menu-label">Menu</span></button>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="page-tag">✦ Formation de la foi</span>
+    <h1 class="page-title">Catéchèse <em>&amp; Parcours</em></h1>
+    <div class="gold-bar"></div>
+    <p class="page-sub">Formation spirituelle pour enfants, jeunes et adultes de tous horizons</p>
+  </div>
+</div>
+
+<div class="content-area">
+  <div class="container">
+
+    <span class="section-label">Nos parcours</span>
+    <h2 class="section-title">Un chemin pour<br><em>chaque âge de la vie</em></h2>
+
+    <div class="parcours-grid">
+      <div class="parcours-card">
+        <span class="parcours-num">01</span>
+        <span class="parcours-age">6 – 11 ans</span>
+        <h3>Éveil à la Foi</h3>
+        <p>Premier contact avec la Bible, les sacrements et la vie de Jésus à travers des activités ludiques et adaptées.</p>
+        <div class="parcours-detail"><strong>Samedi 8h30–10h00</strong><br>Salle paroissiale · Année I et II</div>
+      </div>
+      <div class="parcours-card">
+        <span class="parcours-num">02</span>
+        <span class="parcours-age">12 – 15 ans</span>
+        <h3>Catéchisme de la Confirmation</h3>
+        <p>Préparation au sacrement de Confirmation. Approfondissement de la foi et engagement communautaire.</p>
+        <div class="parcours-detail"><strong>Samedi 10h00–12h00</strong><br>Salle paroissiale · 2 ans de formation</div>
+      </div>
+      <div class="parcours-card">
+        <span class="parcours-num">03</span>
+        <span class="parcours-age">Adultes</span>
+        <h3>Catéchuménat &amp; RICA</h3>
+        <p>Rite d'Initiation Chrétienne des Adultes. Parcours pour ceux qui souhaitent rejoindre ou approfondir leur foi.</p>
+        <div class="parcours-detail"><strong>Mercredi 18h00–19h30</strong><br>Salle de réunion · Octobre – Pâques</div>
+      </div>
+    </div>
+
+    <div class="inscription-band">
+      <div>
+        <h2>Inscriptions ouvertes pour 2026–2027</h2>
+        <p>Les inscriptions pour la nouvelle année catéchétique sont désormais ouvertes. Rendez-vous au secrétariat de la paroisse du lundi au vendredi de 9h à 13h.</p>
+        <p style="margin-top:8px;">Documents requis : acte de baptême, photo d'identité, carnet de santé pour les enfants.</p>
+        <a href="horaires.html" class="btn-gold">Nous contacter →</a>
+      </div>
+    </div>
+
+    <span class="section-label">Notre équipe</span>
+    <h2 class="section-title" style="margin-bottom:40px;">Les <em>catéchistes</em></h2>
+    <div class="equipe-grid">
+      <div class="catechiste-card">
+        <div class="catechiste-avatar">A</div>
+        <h4>Mme Angélique M.</h4>
+        <p>Éveil à la Foi<br>10 ans d'expérience</p>
+      </div>
+      <div class="catechiste-card">
+        <div class="catechiste-avatar">J</div>
+        <h4>M. Joseph K.</h4>
+        <p>Catéchisme junior<br>7 ans d'expérience</p>
+      </div>
+      <div class="catechiste-card">
+        <div class="catechiste-avatar">M</div>
+        <h4>Sœur Marie-Claire</h4>
+        <p>Confirmation<br>15 ans d'expérience</p>
+      </div>
+      <div class="catechiste-card">
+        <div class="catechiste-avatar">P</div>
+        <h4>Père Paul N.</h4>
+        <p>RICA adultes<br>Curé adjoint</p>
+      </div>
+    </div>
+
+    <span class="section-label">Questions fréquentes</span>
+    <h2 class="section-title" style="margin-bottom:32px;">Vos <em>questions</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Mon enfant n'est pas baptisé, peut-il quand même s'inscrire ?
+          <span class="faq-chevron">∨</span>
+        </button>
+        <div class="faq-answer">Oui, tout enfant est le bienvenu. Nous proposons un parcours d'initiation qui peut inclure le baptême à Pâques, en accord avec les parents.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Combien coûte la catéchèse ?
+          <span class="faq-chevron">∨</span>
+        </button>
+        <div class="faq-answer">La catéchèse est gratuite pour tous. Une participation libre aux frais de matériel est appréciée mais non obligatoire. Aucun enfant ne sera refusé pour raisons financières.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Jusqu'à quel âge peut-on suivre le catéchisme ?
+          <span class="faq-chevron">∨</span>
+        </button>
+        <div class="faq-answer">Il n'y a pas de limite d'âge. Le parcours RICA est spécialement conçu pour les adultes de tout âge souhaitant découvrir ou approfondir la foi chrétienne.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Comment se déroule une séance de catéchèse ?
+          <span class="faq-chevron">∨</span>
+        </button>
+        <div class="faq-answer">Chaque séance commence par un temps de prière, suivi d'un enseignement sur un thème biblique ou sacramentel, d'activités adaptées à l'âge, et se termine par un partage en groupe.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Cathédrale Sacré-Cœur de Brazzaville</span>
+      <div class="footer-links"><a href="index.html">Accueil</a><a href="horaires.html">Horaires</a><a href="dons.html">Faire un Don</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const overlay=document.getElementById('overlay'),sideMenu=document.getElementById('sideMenu')
+  function openMenu(){overlay.classList.add('open');sideMenu.classList.add('open');document.body.style.overflow='hidden'}
+  function closeMenu(){overlay.classList.remove('open');sideMenu.classList.remove('open');document.body.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()})
+  function toggleFaq(btn){
+    const item=btn.closest('.faq-item')
+    item.classList.toggle('open')
+  }
+</script>
+</body>
+</html>

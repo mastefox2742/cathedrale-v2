@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faire un Don — Cathédrale Sacré-Cœur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{--gold:#C1A461;--gold-light:#D9C07E;--gold-dark:#9B7F3E;--black:#0A0A0A;--anthracite:#1A1A1A;--dark:#141414;--mid:#2C2C2C;--grey:#8A8A8A;--white:#FAFAFA;--serif:'Playfair Display',Georgia,serif;--sans:'Montserrat',sans-serif;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+    ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--black);} ::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:2px;}
+    header{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(193,164,97,.15);}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .logo-symbol{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;color:var(--gold);}
+    .logo-text{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--white);letter-spacing:.04em;line-height:1.2;}
+    .logo-text span{display:block;font-size:10px;color:var(--gold);letter-spacing:.12em;font-family:var(--sans);text-transform:uppercase;}
+    .menu-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;}
+    .menu-bars{display:flex;flex-direction:column;gap:5px;padding:6px;}
+    .menu-bars b{display:block;height:1.5px;background:var(--white);font-style:normal;}
+    .menu-bars b:nth-child(1){width:28px;} .menu-bars b:nth-child(2){width:20px;background:var(--gold);} .menu-bars b:nth-child(3){width:28px;}
+    .menu-label{font-size:9px;font-weight:600;letter-spacing:.18em;color:var(--grey);text-transform:uppercase;font-family:var(--sans);}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .4s;}
+    .overlay.open{background:rgba(0,0,0,.6);pointer-events:all;}
+    .side-menu{position:fixed;top:0;right:0;width:min(420px,90vw);height:100vh;background:var(--anthracite);z-index:201;transform:translateX(100%);transition:transform .5s cubic-bezier(.77,0,.175,1);display:flex;flex-direction:column;border-left:1px solid rgba(193,164,97,.12);overflow-y:auto;}
+    .side-menu.open{transform:translateX(0);}
+    .side-menu-head{display:flex;justify-content:space-between;align-items:center;padding:32px 36px 24px;border-bottom:1px solid rgba(193,164,97,.1);}
+    .close-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(193,164,97,.25);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--grey);font-size:18px;font-family:var(--sans);}
+    .close-btn:hover{background:rgba(193,164,97,.1);color:var(--gold);}
+    .side-menu-nav{padding:32px 36px;flex:1;}
+    .side-menu-nav a{display:flex;align-items:center;gap:16px;padding:14px 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--serif);font-size:20px;font-weight:600;color:rgba(250,250,250,.72);transition:color .25s,padding-left .25s;}
+    .side-menu-nav a:hover,.side-menu-nav a.active{color:var(--gold);padding-left:6px;}
+    .nav-num{font-family:var(--sans);font-size:10px;font-weight:600;color:var(--gold-dark);letter-spacing:.1em;min-width:22px;}
+    .side-menu-footer{padding:24px 36px 36px;border-top:1px solid rgba(193,164,97,.1);}
+    .side-menu-footer p{font-size:12px;color:var(--grey);line-height:1.8;}
+    .side-menu-footer a{color:var(--gold);text-decoration:none;}
+
+    /* HERO SPECIAL pour Dons */
+    .page-hero{padding:140px 0 80px;background:var(--anthracite);border-bottom:1px solid rgba(193,164,97,.15);position:relative;overflow:hidden;text-align:center;}
+    .page-hero::before{content:'"';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-size:280px;color:rgba(193,164,97,.03);line-height:1;pointer-events:none;}
+    .container{max-width:1000px;margin:0 auto;padding:0 48px;}
+    .container-sm{max-width:720px;margin:0 auto;padding:0 48px;}
+    .page-tag{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+    .page-title{font-family:var(--serif);font-size:clamp(36px,5vw,72px);font-weight:700;line-height:1.05;color:var(--white);}
+    .page-title em{color:var(--gold);font-style:italic;display:block;}
+    .page-sub{font-size:16px;font-weight:300;color:var(--grey);margin-top:20px;line-height:1.8;max-width:520px;margin-left:auto;margin-right:auto;}
+    .gold-bar{width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:24px auto;}
+
+    .content-area{padding:72px 0 80px;}
+    .section-label{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+    .section-title{font-family:var(--serif);font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--white);margin-bottom:16px;line-height:1.2;}
+    .section-title em{color:var(--gold);font-style:italic;}
+    .section-sub{font-size:14px;color:var(--grey);font-weight:300;line-height:1.7;margin-bottom:48px;}
+
+    /* MONTANTS */
+    .montants-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(193,164,97,.1);margin-bottom:8px;}
+    .montant-btn{background:var(--anthracite);padding:24px 16px;text-align:center;cursor:pointer;border:1px solid rgba(193,164,97,.06);transition:all .2s;font-family:var(--serif);font-size:22px;font-weight:700;color:var(--white);}
+    .montant-btn:hover,.montant-btn.active{background:var(--gold);color:var(--black);border-color:var(--gold);}
+    .montant-btn span{display:block;font-family:var(--sans);font-size:10px;font-weight:400;color:inherit;opacity:.7;margin-top:2px;letter-spacing:.06em;}
+    .montant-custom{background:var(--anthracite);border:1px solid rgba(193,164,97,.15);padding:16px 20px;display:flex;align-items:center;gap:12px;margin-bottom:32px;}
+    .montant-custom label{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);white-space:nowrap;}
+    .montant-custom input{flex:1;background:none;border:none;outline:none;font-family:var(--serif);font-size:20px;font-weight:600;color:var(--white);padding:4px 0;}
+    .montant-custom input::placeholder{color:rgba(250,250,250,.2);}
+    .montant-custom .currency{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--gold);}
+
+    /* CANAUX DE DON */
+    .canaux-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(193,164,97,.08);margin-bottom:80px;}
+    .canal-card{background:var(--anthracite);padding:40px 36px;transition:background .2s;}
+    .canal-card:hover{background:var(--mid);}
+    .canal-icon{font-size:32px;margin-bottom:16px;display:block;}
+    .canal-card h3{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--white);margin-bottom:10px;}
+    .canal-card p{font-size:13px;color:var(--grey);font-weight:300;line-height:1.7;margin-bottom:20px;}
+    .canal-info{background:rgba(193,164,97,.06);border:1px solid rgba(193,164,97,.1);padding:14px 18px;}
+    .canal-info p{font-family:var(--sans);font-size:13px;color:var(--white);margin:0;line-height:1.5;}
+    .canal-info strong{color:var(--gold);}
+    .btn-gold{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:var(--black);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:background .2s;margin-top:16px;}
+    .btn-gold:hover{background:var(--gold-light);}
+
+    /* CAUSES */
+    .causes-list{display:flex;flex-direction:column;gap:1px;margin-bottom:80px;}
+    .cause-item{display:flex;gap:0;background:var(--anthracite);border:1px solid rgba(193,164,97,.07);}
+    .cause-bar{width:4px;background:var(--gold-dark);flex-shrink:0;}
+    .cause-body{padding:28px 32px;flex:1;}
+    .cause-body h3{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--white);margin-bottom:8px;}
+    .cause-body p{font-size:13px;color:var(--grey);font-weight:300;line-height:1.7;}
+    .cause-pct{padding:28px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border-left:1px solid rgba(193,164,97,.08);flex-shrink:0;min-width:100px;}
+    .cause-pct strong{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--gold);}
+    .cause-pct span{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;}
+
+    /* VERSET */
+    .verset-band{background:var(--dark);border-top:1px solid rgba(193,164,97,.1);border-bottom:1px solid rgba(193,164,97,.1);padding:56px 0;text-align:center;}
+    .verset-band blockquote{font-family:var(--serif);font-size:clamp(18px,2.5vw,24px);font-style:italic;color:var(--white);line-height:1.6;max-width:640px;margin:0 auto;padding:0 48px;}
+    .verset-band cite{display:block;margin-top:12px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.15em;color:var(--gold);font-style:normal;text-transform:uppercase;}
+
+    footer{background:var(--black);border-top:1px solid rgba(193,164,97,.1);padding:48px 0 28px;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--grey);}
+    .footer-links a{color:rgba(250,250,250,.4);text-decoration:none;font-size:13px;transition:color .2s;margin-left:20px;}
+    .footer-links a:hover{color:var(--gold);}
+
+    @media(max-width:900px){
+      header{padding:18px 20px;} .container,.container-sm{padding:0 20px;} .page-hero{padding:120px 0 60px;}
+      .montants-grid{grid-template-columns:1fr 1fr;}
+      .canaux-grid{grid-template-columns:1fr;}
+      .cause-pct{display:none;}
+      .verset-band blockquote{padding:0 20px;}
+    }
+    @media(max-width:500px){.montants-grid{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <a href="index.html" class="logo"><div class="logo-symbol">✝</div><div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div></a>
+    <button class="close-btn" onclick="closeMenu()">✕</button>
+  </div>
+  <nav class="side-menu-nav">
+    <a href="index.html"><span class="nav-num">01</span> Accueil</a>
+    <a href="liturgie.html"><span class="nav-num">02</span> Liturgie du Jour</a>
+    <a href="annonces.html"><span class="nav-num">03</span> Annonces</a>
+    <a href="evenements.html"><span class="nav-num">04</span> Événements</a>
+    <a href="catechese.html"><span class="nav-num">05</span> Catéchèse</a>
+    <a href="vie-spirituelle.html"><span class="nav-num">06</span> Vie Spirituelle</a>
+    <a href="horaires.html"><span class="nav-num">07</span> Horaires &amp; Contact</a>
+    <a href="dons.html" class="active"><span class="nav-num">08</span> Faire un Don</a>
+  </nav>
+  <div class="side-menu-footer"><p>Avenue de la Paix, Centre-ville<br>Brazzaville, République du Congo<br><br><a href="tel:+242060000000">+242 06 000 00 00</a></p></div>
+</div>
+
+<header>
+  <a href="index.html" class="logo"><div class="logo-symbol">✝</div><div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div></a>
+  <button class="menu-btn-wrap" onclick="openMenu()"><div class="menu-bars"><b></b><b></b><b></b></div><span class="menu-label">Menu</span></button>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="page-tag">✦ Générosité &amp; Solidarité</span>
+    <h1 class="page-title">Faire un Don<em>pour l'œuvre de Dieu</em></h1>
+    <div class="gold-bar"></div>
+    <p class="page-sub">Vos dons soutiennent l'entretien de notre cathédrale, nos missions d'évangélisation et l'aide aux plus démunis de Brazzaville.</p>
+  </div>
+</div>
+
+<div class="content-area">
+  <div class="container-sm">
+
+    <!-- MONTANTS -->
+    <span class="section-label">Choisir un montant</span>
+    <h2 class="section-title">Votre <em>générosité</em></h2>
+    <p class="section-sub">Chaque don, quel que soit son montant, est une bénédiction pour notre communauté.</p>
+
+    <div class="montants-grid" id="montantsGrid">
+      <div class="montant-btn active" onclick="selectMontant(this, 1000)">1 000<span>FCFA</span></div>
+      <div class="montant-btn" onclick="selectMontant(this, 5000)">5 000<span>FCFA</span></div>
+      <div class="montant-btn" onclick="selectMontant(this, 10000)">10 000<span>FCFA</span></div>
+      <div class="montant-btn" onclick="selectMontant(this, 25000)">25 000<span>FCFA</span></div>
+    </div>
+    <div class="montant-custom">
+      <label>Montant libre</label>
+      <input type="number" id="montantLibre" placeholder="Entrez un montant" min="100" />
+      <span class="currency">FCFA</span>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <!-- CANAUX -->
+    <span class="section-label">Comment donner</span>
+    <h2 class="section-title" style="margin-bottom:8px;">Choisissez <em>votre canal</em></h2>
+    <p class="section-sub">Plusieurs moyens simples et sécurisés sont disponibles.</p>
+
+    <div class="canaux-grid">
+      <div class="canal-card">
+        <span class="canal-icon">📱</span>
+        <h3>Mobile Money</h3>
+        <p>Envoyez votre don directement via MTN Mobile Money ou Airtel Money. Rapide, sécurisé, disponible 24h/24.</p>
+        <div class="canal-info">
+          <p><strong>MTN MoMo :</strong> +242 06 000 00 02<br>
+          <strong>Airtel Money :</strong> +242 05 000 00 03<br>
+          Nom du bénéficiaire : <strong>Cathédrale Sacré-Cœur</strong></p>
+        </div>
+      </div>
+      <div class="canal-card">
+        <span class="canal-icon">🏦</span>
+        <h3>Virement Bancaire</h3>
+        <p>Effectuez un virement depuis votre banque. Idéal pour les dons réguliers ou les montants importants.</p>
+        <div class="canal-info">
+          <p><strong>Banque :</strong> BGFI Bank Congo<br>
+          <strong>Compte :</strong> CG 00 12345 00001 12345678901 00<br>
+          <strong>Titulaire :</strong> Archidiocèse de Brazzaville</p>
+        </div>
+      </div>
+      <div class="canal-card">
+        <span class="canal-icon">💵</span>
+        <h3>Don en Espèces</h3>
+        <p>Déposez votre offrande directement à la cathédrale au secrétariat paroissial ou dans les troncs lors des messes.</p>
+        <div class="canal-info">
+          <p><strong>Secrétariat :</strong> Lun–Ven, 9h–13h<br>
+          <strong>Quête dominicale :</strong> Chaque messe<br>
+          <strong>Troncs :</strong> Ouverts en permanence</p>
+        </div>
+      </div>
+      <div class="canal-card">
+        <span class="canal-icon">💌</span>
+        <h3>Promesse de Don</h3>
+        <p>Vous souhaitez faire un don régulier ou planifier un legs spirituel ? Contactez-nous pour en parler confidentiellement.</p>
+        <div class="canal-info">
+          <p><strong>Email :</strong> dons@sacrecoeur-brazza.cg<br>
+          <strong>Tél :</strong> +242 06 000 00 00<br>
+          Entretien confidentiel sur rendez-vous</p>
+        </div>
+        <a href="mailto:dons@sacrecoeur-brazza.cg" class="btn-gold">Nous écrire →</a>
+      </div>
+    </div>
+
+    <!-- CAUSES -->
+    <span class="section-label">Affectation des dons</span>
+    <h2 class="section-title" style="margin-bottom:8px;">À quoi servent <em>vos dons ?</em></h2>
+    <p class="section-sub">Chaque franc donné est géré avec transparence et sert directement notre mission.</p>
+
+    <div class="causes-list">
+      <div class="cause-item">
+        <div class="cause-bar" style="background:var(--gold);"></div>
+        <div class="cause-body">
+          <h3>Entretien &amp; Restauration de la Cathédrale</h3>
+          <p>Conservation du patrimoine architectural, entretien des vitraux, réparations de la toiture et maintenance des installations. Notre cathédrale a plus de 130 ans.</p>
+        </div>
+        <div class="cause-pct"><strong>40%</strong><span>des dons</span></div>
+      </div>
+      <div class="cause-item">
+        <div class="cause-bar"></div>
+        <div class="cause-body">
+          <h3>Mission d'Évangélisation &amp; Catéchèse</h3>
+          <p>Financement des programmes de catéchèse, de l'Académie des laïcs, des retraites spirituelles et des activités pastorales.</p>
+        </div>
+        <div class="cause-pct"><strong>30%</strong><span>des dons</span></div>
+      </div>
+      <div class="cause-item">
+        <div class="cause-bar"></div>
+        <div class="cause-body">
+          <h3>Aide aux Familles Défavorisées</h3>
+          <p>Distributions alimentaires, aide scolaire pour les enfants, soutien aux malades et personnes âgées dans le besoin à Brazzaville.</p>
+        </div>
+        <div class="cause-pct"><strong>20%</strong><span>des dons</span></div>
+      </div>
+      <div class="cause-item">
+        <div class="cause-bar"></div>
+        <div class="cause-body">
+          <h3>Fonctionnement Paroissial</h3>
+          <p>Personnel pastoral, frais administratifs, outils numériques, communication et autres charges nécessaires à la vie quotidienne de la paroisse.</p>
+        </div>
+        <div class="cause-pct"><strong>10%</strong><span>des dons</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="verset-band">
+  <blockquote>
+    « Donnez et il vous sera donné. C'est une bonne mesure, tassée, secouée, débordante, qu'on versera dans le pan de votre vêtement. »
+    <cite>— Luc 6, 38</cite>
+  </blockquote>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Cathédrale Sacré-Cœur de Brazzaville</span>
+      <div class="footer-links"><a href="index.html">Accueil</a><a href="horaires.html">Horaires</a><a href="catechese.html">Catéchèse</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const overlay=document.getElementById('overlay'),sideMenu=document.getElementById('sideMenu')
+  function openMenu(){overlay.classList.add('open');sideMenu.classList.add('open');document.body.style.overflow='hidden'}
+  function closeMenu(){overlay.classList.remove('open');sideMenu.classList.remove('open');document.body.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()})
+
+  function selectMontant(el, val) {
+    document.querySelectorAll('.montant-btn').forEach(b=>b.classList.remove('active'))
+    el.classList.add('active')
+    document.getElementById('montantLibre').value = ''
+  }
+  document.getElementById('montantLibre').addEventListener('input', () => {
+    document.querySelectorAll('.montant-btn').forEach(b=>b.classList.remove('active'))
+  })
+</script>
+</body>
+</html>

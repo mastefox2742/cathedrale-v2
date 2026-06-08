@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horaires &amp; Contact — Cathédrale Sacré-Cœur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    :root{--gold:#C1A461;--gold-light:#D9C07E;--gold-dark:#9B7F3E;--black:#0A0A0A;--anthracite:#1A1A1A;--dark:#141414;--mid:#2C2C2C;--grey:#8A8A8A;--white:#FAFAFA;--serif:'Playfair Display',Georgia,serif;--sans:'Montserrat',sans-serif;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--sans);background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+    ::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-track{background:var(--black);} ::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:2px;}
+    header{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(193,164,97,.15);}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .logo-symbol{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;color:var(--gold);}
+    .logo-text{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--white);letter-spacing:.04em;line-height:1.2;}
+    .logo-text span{display:block;font-size:10px;font-weight:400;color:var(--gold);letter-spacing:.12em;font-family:var(--sans);text-transform:uppercase;}
+    .menu-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;}
+    .menu-bars{display:flex;flex-direction:column;gap:5px;padding:6px;}
+    .menu-bars b{display:block;height:1.5px;background:var(--white);font-style:normal;}
+    .menu-bars b:nth-child(1){width:28px;} .menu-bars b:nth-child(2){width:20px;background:var(--gold);} .menu-bars b:nth-child(3){width:28px;}
+    .menu-label{font-size:9px;font-weight:600;letter-spacing:.18em;color:var(--grey);text-transform:uppercase;font-family:var(--sans);}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .4s ease;}
+    .overlay.open{background:rgba(0,0,0,.6);pointer-events:all;}
+    .side-menu{position:fixed;top:0;right:0;width:min(420px,90vw);height:100vh;background:var(--anthracite);z-index:201;transform:translateX(100%);transition:transform .5s cubic-bezier(.77,0,.175,1);display:flex;flex-direction:column;border-left:1px solid rgba(193,164,97,.12);overflow-y:auto;}
+    .side-menu.open{transform:translateX(0);}
+    .side-menu-head{display:flex;justify-content:space-between;align-items:center;padding:32px 36px 24px;border-bottom:1px solid rgba(193,164,97,.1);}
+    .close-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(193,164,97,.25);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--grey);font-size:18px;transition:all .2s;font-family:var(--sans);}
+    .close-btn:hover{background:rgba(193,164,97,.1);color:var(--gold);}
+    .side-menu-nav{padding:32px 36px;flex:1;}
+    .side-menu-nav a{display:flex;align-items:center;gap:16px;padding:14px 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04);font-family:var(--serif);font-size:20px;font-weight:600;color:rgba(250,250,250,.72);transition:color .25s,padding-left .25s;}
+    .side-menu-nav a:hover,.side-menu-nav a.active{color:var(--gold);padding-left:6px;}
+    .nav-num{font-family:var(--sans);font-size:10px;font-weight:600;color:var(--gold-dark);letter-spacing:.1em;min-width:22px;}
+    .side-menu-footer{padding:24px 36px 36px;border-top:1px solid rgba(193,164,97,.1);}
+    .side-menu-footer p{font-size:12px;color:var(--grey);line-height:1.8;}
+    .side-menu-footer a{color:var(--gold);text-decoration:none;}
+
+    .page-hero{padding:140px 0 60px;background:var(--anthracite);border-bottom:1px solid rgba(193,164,97,.1);position:relative;overflow:hidden;}
+    .page-hero::before{content:'✝';position:absolute;right:80px;top:50%;transform:translateY(-50%);font-family:var(--serif);font-size:200px;color:rgba(193,164,97,.04);line-height:1;}
+    .container{max-width:1000px;margin:0 auto;padding:0 48px;}
+    .page-tag{display:block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+    .page-title{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:700;line-height:1.1;color:var(--white);}
+    .page-title em{color:var(--gold);font-style:italic;}
+    .page-sub{font-size:15px;font-weight:300;color:var(--grey);margin-top:14px;line-height:1.7;}
+    .gold-bar{width:48px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:20px 0;}
+
+    .content-area{padding:72px 0 80px;}
+    .section-title{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+    .section-title::before{content:'';display:inline-block;width:3px;height:24px;background:var(--gold);}
+
+    /* MESSES */
+    .messe-list{display:flex;flex-direction:column;gap:1px;margin-bottom:56px;}
+    .messe-item{display:flex;align-items:center;gap:24px;padding:24px 32px;background:var(--anthracite);border:1px solid rgba(193,164,97,.07);transition:background .2s;}
+    .messe-item:hover{background:var(--mid);}
+    .messe-stripe{width:4px;height:52px;background:var(--gold-dark);flex-shrink:0;border-radius:2px;}
+    .messe-stripe.special{background:var(--gold);}
+    .messe-jour{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--white);flex:1;}
+    .messe-horaires{display:flex;gap:8px;flex-wrap:wrap;}
+    .horaire-pill{padding:5px 14px;border:1px solid rgba(193,164,97,.3);color:var(--gold);font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.04em;}
+
+    /* SACREMENTS */
+    .sacrement-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(193,164,97,.08);margin-bottom:56px;}
+    .sacrement-card{background:var(--anthracite);padding:28px 28px;display:flex;gap:16px;align-items:flex-start;}
+    .sacrement-icon{width:44px;height:44px;border:1px solid rgba(193,164,97,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--gold);}
+    .sacrement-card h3{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--white);margin-bottom:4px;}
+    .sacrement-card p{font-size:13px;color:var(--grey);font-weight:300;line-height:1.6;}
+
+    /* CONTACT */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(193,164,97,.08);margin-bottom:56px;}
+    .contact-card{background:var(--dark);padding:28px 28px;display:flex;gap:16px;align-items:flex-start;}
+    .contact-icon{width:44px;height:44px;border:1px solid rgba(193,164,97,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .contact-card h4{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+    .contact-card p,.contact-card a{font-family:var(--serif);font-size:15px;color:var(--white);text-decoration:none;line-height:1.5;}
+    .contact-card a:hover{color:var(--gold);}
+
+    /* MAP placeholder */
+    .map-placeholder{background:var(--anthracite);border:1px solid rgba(193,164,97,.1);height:260px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;margin-bottom:56px;}
+    .map-placeholder p{font-family:var(--serif);font-size:16px;color:var(--grey);}
+    .map-placeholder a{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid rgba(193,164,97,.3);padding:10px 20px;transition:background .2s;}
+    .map-placeholder a:hover{background:rgba(193,164,97,.1);}
+
+    footer{background:var(--black);border-top:1px solid rgba(193,164,97,.1);padding:48px 0 28px;margin-top:0;}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--grey);}
+    .footer-links a{color:rgba(250,250,250,.4);text-decoration:none;font-size:13px;transition:color .2s;margin-left:20px;}
+    .footer-links a:hover{color:var(--gold);}
+
+    @media(max-width:768px){
+      header{padding:18px 20px;}
+      .container{padding:0 20px;}
+      .page-hero{padding:120px 0 40px;}
+      .sacrement-grid,.contact-grid{grid-template-columns:1fr;}
+      .messe-item{padding:18px 20px;flex-wrap:wrap;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <a href="index.html" class="logo"><div class="logo-symbol">✝</div><div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div></a>
+    <button class="close-btn" onclick="closeMenu()">✕</button>
+  </div>
+  <nav class="side-menu-nav">
+    <a href="index.html"><span class="nav-num">01</span> Accueil</a>
+    <a href="liturgie.html"><span class="nav-num">02</span> Liturgie du Jour</a>
+    <a href="annonces.html"><span class="nav-num">03</span> Annonces</a>
+    <a href="evenements.html"><span class="nav-num">04</span> Événements</a>
+    <a href="catechese.html"><span class="nav-num">05</span> Catéchèse</a>
+    <a href="vie-spirituelle.html"><span class="nav-num">06</span> Vie Spirituelle</a>
+    <a href="horaires.html" class="active"><span class="nav-num">07</span> Horaires &amp; Contact</a>
+    <a href="dons.html"><span class="nav-num">08</span> Faire un Don</a>
+  </nav>
+  <div class="side-menu-footer"><p>Avenue de la Paix, Centre-ville<br>Brazzaville, République du Congo<br><br><a href="tel:+242060000000">+242 06 000 00 00</a></p></div>
+</div>
+
+<header>
+  <a href="index.html" class="logo"><div class="logo-symbol">✝</div><div class="logo-text">Sacré-Cœur <span>Brazzaville</span></div></a>
+  <button class="menu-btn-wrap" onclick="openMenu()"><div class="menu-bars"><b></b><b></b><b></b></div><span class="menu-label">Menu</span></button>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="page-tag">✦ Informations pratiques</span>
+    <h1 class="page-title">Horaires &amp; <em>Contact</em></h1>
+    <div class="gold-bar"></div>
+    <p class="page-sub">Cathédrale Sacré-Cœur de Brazzaville · Avenue de la Paix, Centre-ville</p>
+  </div>
+</div>
+
+<div class="content-area">
+  <div class="container">
+
+    <h2 class="section-title">Horaires des Messes</h2>
+    <div class="messe-list">
+      <div class="messe-item">
+        <div class="messe-stripe"></div>
+        <div class="messe-jour">Lundi – Vendredi</div>
+        <div class="messe-horaires">
+          <span class="horaire-pill">07h00</span>
+          <span class="horaire-pill">18h30</span>
+        </div>
+      </div>
+      <div class="messe-item">
+        <div class="messe-stripe"></div>
+        <div class="messe-jour">Samedi</div>
+        <div class="messe-horaires">
+          <span class="horaire-pill">07h00</span>
+          <span class="horaire-pill">10h00</span>
+          <span class="horaire-pill">18h30</span>
+        </div>
+      </div>
+      <div class="messe-item">
+        <div class="messe-stripe special"></div>
+        <div class="messe-jour">Dimanche</div>
+        <div class="messe-horaires">
+          <span class="horaire-pill">07h00</span>
+          <span class="horaire-pill">09h00</span>
+          <span class="horaire-pill">11h00</span>
+          <span class="horaire-pill">17h00</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Sacrements</h2>
+    <div class="sacrement-grid">
+      <div class="sacrement-card">
+        <div class="sacrement-icon">🤝</div>
+        <div>
+          <h3>Confessions</h3>
+          <p>Samedi 15h–17h · Dimanche 8h–9h45</p>
+        </div>
+      </div>
+      <div class="sacrement-card">
+        <div class="sacrement-icon">💧</div>
+        <div>
+          <h3>Baptêmes</h3>
+          <p>1er dimanche du mois — sur rendez-vous</p>
+        </div>
+      </div>
+      <div class="sacrement-card">
+        <div class="sacrement-icon">💍</div>
+        <div>
+          <h3>Mariages</h3>
+          <p>Sur rendez-vous — 2 mois à l'avance minimum</p>
+        </div>
+      </div>
+      <div class="sacrement-card">
+        <div class="sacrement-icon">✋</div>
+        <div>
+          <h3>Onction des malades</h3>
+          <p>1er vendredi du mois à 18h30</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Informations pratiques</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <h4>Adresse</h4>
+          <p>Avenue de la Paix, Centre-ville<br>Brazzaville, République du Congo</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div>
+          <h4>Téléphone</h4>
+          <a href="tel:+242060000000">+242 06 000 00 00</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:contact@sacrecoeur-brazza.cg">contact@sacrecoeur-brazza.cg</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <div>
+          <h4>WhatsApp</h4>
+          <a href="https://wa.me/242060000001">+242 06 000 00 01</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-placeholder">
+      <p>Avenue de la Paix, Centre-ville, Brazzaville</p>
+      <a href="https://maps.google.com/?q=Cathedrale+Sacre+Coeur+Brazzaville" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Cathédrale Sacré-Cœur de Brazzaville</span>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="liturgie.html">Liturgie</a>
+        <a href="dons.html">Faire un Don</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const overlay=document.getElementById('overlay'),sideMenu=document.getElementById('sideMenu')
+  function openMenu(){overlay.classList.add('open');sideMenu.classList.add('open');document.body.style.overflow='hidden'}
+  function closeMenu(){overlay.classList.remove('open');sideMenu.classList.remove('open');document.body.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()})
+</script>
+</body>
+</html>
