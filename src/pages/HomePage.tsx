@@ -37,11 +37,13 @@ export function HomePage() {
   return (
     <>
       {/* ══ HERO ══ */}
-      <section style={{ position: 'relative', height: '100vh', minHeight: 680, display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', height: '100svh', minHeight: 600, display: 'flex', alignItems: 'center', overflow: 'hidden', width: '100%' }}>
         <div ref={heroBg} style={{
           position: 'absolute', inset: 0,
-          background: `url('/cathedrale.jpg') center/cover no-repeat`,
+          backgroundImage: `url('/cathedrale.jpg')`,
+          backgroundSize: 'cover', backgroundPosition: 'center',
           transform: 'scale(1.06)',
+          willChange: 'transform',
         }}>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(120deg, rgba(30,58,95,.88) 0%, rgba(30,58,95,.6) 55%, rgba(74,127,181,.3) 100%)' }} />
         </div>

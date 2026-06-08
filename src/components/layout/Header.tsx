@@ -46,17 +46,19 @@ export function Header({ transparent = false }: HeaderProps) {
 
   return (
     <>
-      <header style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: isScrolled ? '12px var(--pad-x)' : '18px var(--pad-x)',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        background: headerBg,
-        backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-        WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(30,58,95,.1)' : 'none',
-        boxShadow: isScrolled ? '0 2px 20px rgba(30,58,95,.08)' : 'none',
-        transition: 'all .35s ease',
-      }}>
+      <header
+        className={`site-header${isScrolled ? ' scrolled' : ''}${transparent ? ' transparent' : ''}`}
+        style={{
+          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+          padding: isScrolled ? '12px var(--pad-x)' : '18px var(--pad-x)',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          background: headerBg,
+          backdropFilter: isScrolled ? 'blur(16px)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
+          borderBottom: isScrolled ? '1px solid rgba(30,58,95,.1)' : 'none',
+          boxShadow: isScrolled ? '0 2px 20px rgba(30,58,95,.08)' : 'none',
+          transition: 'all .35s ease',
+        }}>
         {/* Logo */}
         <NavLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
           <div
@@ -72,14 +74,14 @@ export function Header({ transparent = false }: HeaderProps) {
             <img src="/logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 1, minWidth: 0 }}>
-            <span style={{
+            <span className="logo-name" style={{
               fontFamily: 'var(--font-serif)', fontSize: 'clamp(13px, 3.5vw, 15px)',
               fontWeight: 600, color: textColor, letterSpacing: '.03em',
               transition: 'color .35s', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
             }}>
               Cathédrale Sacré-Cœur
             </span>
-            <span className="header-subtitle" style={{
+            <span className="logo-sub header-subtitle" style={{
               fontSize: 8, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase',
               color: subColor, transition: 'color .35s',
             }}>
@@ -93,15 +95,30 @@ export function Header({ transparent = false }: HeaderProps) {
           style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, flexShrink: 0, padding: '4px 0 4px 12px' }}
           aria-label="Menu">
           <div style={{ display: 'flex', flexDirection: 'column', gap: 5, padding: 4 }}>
-            <span style={{ display: 'block', height: 1.5, width: 26, background: barColor, transition: 'all .3s' }} />
-            <span style={{ display: 'block', height: 1.5, width: 18, background: barAccent, transition: 'all .3s' }} />
-            <span style={{ display: 'block', height: 1.5, width: 26, background: barColor, transition: 'all .3s' }} />
+            <span className="menu-bar" style={{ display: 'block', height: 1.5, width: 26, background: barColor, transition: 'all .3s' }} />
+            <span className="menu-bar menu-bar-accent" style={{ display: 'block', height: 1.5, width: 18, background: barAccent, transition: 'all .3s' }} />
+            <span className="menu-bar" style={{ display: 'block', height: 1.5, width: 26, background: barColor, transition: 'all .3s' }} />
           </div>
-          <span style={{ fontSize: 8, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: subColor, transition: 'color .35s' }}>Menu</span>
+          <span className="menu-label-txt" style={{ fontSize: 8, fontWeight: 700, letterSpacing: '.18em', textTransform: 'uppercase', color: subColor, transition: 'color .35s' }}>Menu</span>
         </button>
       </header>
 
       <style>{`
+        /* ── Header mobile : toujours fond visible ── */
+        @media (max-width: 768px) {
+          .site-header.transparent:not(.scrolled) {
+            background: rgba(250,247,242,.95) !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30,58,95,.08) !important;
+          }
+          /* Barres du menu : forcées en couleur sombre sur mobile */
+          .site-header.transparent:not(.scrolled) .menu-bar { background: var(--primary) !important; }
+          .site-header.transparent:not(.scrolled) .menu-bar-accent { background: var(--blue) !important; }
+          .site-header.transparent:not(.scrolled) .menu-label-txt { color: var(--text-light) !important; }
+          .site-header.transparent:not(.scrolled) .logo-name { color: var(--primary) !important; }
+          .site-header.transparent:not(.scrolled) .logo-sub  { color: var(--blue) !important; }
+        }
         @media (max-width: 480px) {
           .header-subtitle { display: none; }
         }

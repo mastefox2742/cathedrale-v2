@@ -37,7 +37,7 @@ export function Layout({ children, transparent = false }: LayoutProps) {
   }, [])
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column', overflowX: 'hidden', width: '100%' }}>
       <Header transparent={transparent} />
       <main style={{ flex: 1 }}>
         {children}
@@ -46,6 +46,10 @@ export function Layout({ children, transparent = false }: LayoutProps) {
 
       {/* ── Responsive global overrides ── */}
       <style>{`
+        /* ── Anti débordement horizontal global ── */
+        *, *::before, *::after { max-width: 100%; }
+        section, div, main, footer, header, nav { max-width: 100vw; }
+
         /* Hero mobile */
         @media (max-width: 640px) {
           section { padding: 48px 0 !important; }
